@@ -1745,46 +1745,46 @@ else
   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH IgnoreRhosts is enabled"
   fail=$((fail + 1))
 fi
-#  
-# #Ensure SSH HostbasedAuthentication is disabled
-# echo
-# echo -e "${RED}5.2.7${NC} Ensure SSH HostbasedAuthentication is disabled"
-# egrep -q "^(\s*)HostbasedAuthentication\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)HostbasedAuthentication\s+\S+(\s*#.*)?\s*$/\1HostbasedAuthentication no\2/" /etc/ssh/sshd_config || echo "HostbasedAuthentication no" >> /etc/ssh/sshd_config
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure SSH HostbasedAuthentication is disabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH HostbasedAuthentication is disabled"
-#   fail=$((fail + 1))
-# fi
+ 
+#Ensure SSH HostbasedAuthentication is disabled
+echo
+echo -e "${RED}5.2.7${NC} Ensure SSH HostbasedAuthentication is disabled"
+egrep -q "^(\s*)HostbasedAuthentication\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)HostbasedAuthentication\s+\S+(\s*#.*)?\s*$/\1HostbasedAuthentication no\2/" /etc/ssh/sshd_config || echo "HostbasedAuthentication no" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SSH HostbasedAuthentication is disabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH HostbasedAuthentication is disabled"
+  fail=$((fail + 1))
+fi
 
-# #Ensure SSH root login is disabled
-# echo
-# echo -e "${RED}5.2.8${NC} Ensure SSH root login is disabled"
-# egrep -q "^(\s*)PermitRootLogin\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)PermitRootLogin\s+\S+(\s*#.*)?\s*$/\1PermitRootLogin no\2/" /etc/ssh/sshd_config || echo "PermitRootLogin no" >> /etc/ssh/sshd_config
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure SSH root login is disabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH root login is disabled"
-#   fail=$((fail + 1))
-# fi
-#  
-# #Ensure SSH PermitEmptyPasswords is disabled
-# echo
-# echo -e "${RED}5.2.9${NC} Ensure SSH PermitEmptyPasswords is disabled"
-# egrep -q "^(\s*)PermitEmptyPasswords\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)PermitEmptyPasswords\s+\S+(\s*#.*)?\s*$/\1PermitEmptyPasswords no\2/" /etc/ssh/sshd_config || echo "PermitEmptyPasswords no" >> /etc/ssh/sshd_config
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure SSH PermitEmptyPasswords is disabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH PermitEmptyPasswords is disabled"
-#   fail=$((fail + 1))
-# fi
-#  
+#Ensure SSH root login is disabled
+echo
+echo -e "${RED}5.2.8${NC} Ensure SSH root login is disabled"
+egrep -q "^(\s*)PermitRootLogin\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)PermitRootLogin\s+\S+(\s*#.*)?\s*$/\1PermitRootLogin no\2/" /etc/ssh/sshd_config || echo "PermitRootLogin no" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SSH root login is disabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH root login is disabled"
+  fail=$((fail + 1))
+fi
+ 
+#Ensure SSH PermitEmptyPasswords is disabled
+echo
+echo -e "${RED}5.2.9${NC} Ensure SSH PermitEmptyPasswords is disabled"
+egrep -q "^(\s*)PermitEmptyPasswords\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)PermitEmptyPasswords\s+\S+(\s*#.*)?\s*$/\1PermitEmptyPasswords no\2/" /etc/ssh/sshd_config || echo "PermitEmptyPasswords no" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SSH PermitEmptyPasswords is disabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH PermitEmptyPasswords is disabled"
+  fail=$((fail + 1))
+fi
+ 
 # #Ensure SSH PermitUserEnvironment is disabled
 # echo
 # echo -e "${RED}5.2.10${NC} Ensure SSH PermitUserEnvironment is disabled"
