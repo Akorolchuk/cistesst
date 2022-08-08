@@ -1785,18 +1785,18 @@ else
   fail=$((fail + 1))
 fi
  
-# #Ensure SSH PermitUserEnvironment is disabled
-# echo
-# echo -e "${RED}5.2.10${NC} Ensure SSH PermitUserEnvironment is disabled"
-# egrep -q "^(\s*)PermitUserEnvironment\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)PermitUserEnvironment\s+\S+(\s*#.*)?\s*$/\1PermitUserEnvironment no\2/" /etc/ssh/sshd_config || echo "PermitUserEnvironment no" >> /etc/ssh/sshd_config
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure SSH PermitUserEnvironment is disabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH PermitUserEnvironment is disabled"
-#   fail=$((fail + 1))
-# fi
+#Ensure SSH PermitUserEnvironment is disabled
+echo
+echo -e "${RED}5.2.10${NC} Ensure SSH PermitUserEnvironment is disabled"
+egrep -q "^(\s*)PermitUserEnvironment\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)PermitUserEnvironment\s+\S+(\s*#.*)?\s*$/\1PermitUserEnvironment no\2/" /etc/ssh/sshd_config || echo "PermitUserEnvironment no" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SSH PermitUserEnvironment is disabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH PermitUserEnvironment is disabled"
+  fail=$((fail + 1))
+fi
 #  
 # #Ensure only approved MAC algorithms are used
 # echo
