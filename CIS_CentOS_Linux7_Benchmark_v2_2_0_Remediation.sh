@@ -1116,18 +1116,19 @@ else
   fail=$((fail + 1))
 fi
 
-#Ensure /etc/hosts.deny is configured
-echo
-echo -e "${RED}3.4.3${NC} Ensure /etc/hosts.deny is configured"
-echo "ALL: ALL" >> /etc/hosts.deny
-policystatus=$?
-if [[ "$policystatus" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure /etc/hosts.deny is configured"
-  success=$((success + 1))
-else
-  echo -e "${RED}UnableToRemediate:${NC} Ensure /etc/hosts.deny is configured"
-  fail=$((fail + 1))
-fi
+#Need to be congifured lately
+# #Ensure /etc/hosts.deny is configured
+# echo
+# echo -e "${RED}3.4.3${NC} Ensure /etc/hosts.deny is configured"
+# echo "ALL: ALL" >> /etc/hosts.deny
+# policystatus=$?
+# if [[ "$policystatus" -eq 0 ]]; then
+#   echo -e "${GREEN}Remediated:${NC} Ensure /etc/hosts.deny is configured"
+#   success=$((success + 1))
+# else
+#   echo -e "${RED}UnableToRemediate:${NC} Ensure /etc/hosts.deny is configured"
+#   fail=$((fail + 1))
+# fi
 
 #Ensure permissions on /etc/hosts.allow are configured
 echo
@@ -1661,4 +1662,186 @@ chown root:root /etc/cron.allow
 chown root:root /etc/at.allow
 echo -e "${GREEN}Remediated:${NC} Ensure at/cron is restricted to authorized users"
 success=$((success + 1))
+############################################################################################################################
+
+##Category 5.2 Access, Authentication and Authorization - SSH Server Configuration
+echo
+echo -e "${BLUE}5.2 Access, Authentication and Authorization - SSH Server Configuration${NC}"
+
+#Ensure permissions on /etc/ssh/sshd_config are configured
+echo
+echo -e "${RED}5.2.1${NC} Ensure permissions on /etc/ssh/sshd_config are configured"
+chown root:root /etc/ssh/sshd_config && chmod og-rwx /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/ssh/sshd_config are configured"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/ssh/sshd_config are configured"
+  fail=$((fail + 1))
+fi
+ 
+#Ensure SSH Protocol is set to 2
+echo
+echo -e "${RED}5.2.2${NC} Ensure SSH Protocol is set to 2"
+egrep -q "^(\s*)Protocol\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)Protocol\s+\S+(\s*#.*)?\s*$/\1Protocol 2\2/" /etc/ssh/sshd_config || echo "Protocol 2" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SSH Protocol is set to 2"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH Protocol is set to 2"
+  fail=$((fail + 1))
+fi
+
+#Ensure SSH LogLevel is set to INFO
+echo
+echo -e "${RED}5.2.3${NC} Ensure SSH LogLevel is set to INFO"
+egrep -q "^(\s*)LogLevel\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)LogLevel\s+\S+(\s*#.*)?\s*$/\1LogLevel INFO\2/" /etc/ssh/sshd_config || echo "LogLevel INFO" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SSH LogLevel is set to INFO"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH LogLevel is set to INFO"
+  fail=$((fail + 1))
+fi
+
+#Ensure SSH X11 forwarding is disabled
+echo
+echo -e "${RED}5.2.4${NC} Ensure SSH X11 forwarding is disabled"
+egrep -q "^(\s*)X11Forwarding\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)X11Forwarding\s+\S+(\s*#.*)?\s*$/\1X11Forwarding no\2/" /etc/ssh/sshd_config || echo "X11Forwarding no" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SSH X11 forwarding is disabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH X11 forwarding is disabled"
+  fail=$((fail + 1))
+fi
+
+#Ensure SSH MaxAuthTries is set to 4 or less
+echo
+echo -e "${RED}5.2.5${NC} Ensure SSH MaxAuthTries is set to 4 or less"
+egrep -q "^(\s*)MaxAuthTries\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)MaxAuthTries\s+\S+(\s*#.*)?\s*$/\1MaxAuthTries 4\2/" /etc/ssh/sshd_config || echo "MaxAuthTries 4" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SSH MaxAuthTries is set to 4 or less"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH MaxAuthTries is set to 4 or less"
+  fail=$((fail + 1))
+fi
+
+#Ensure SSH IgnoreRhosts is enabled
+echo
+echo -e "${RED}5.2.6${NC} Ensure SSH IgnoreRhosts is enabled"
+egrep -q "^(\s*)IgnoreRhosts\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)IgnoreRhosts\s+\S+(\s*#.*)?\s*$/\1IgnoreRhosts yes\2/" /etc/ssh/sshd_config || echo "IgnoreRhosts yes" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SSH IgnoreRhosts is enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH IgnoreRhosts is enabled"
+  fail=$((fail + 1))
+fi
+ 
+#Ensure SSH HostbasedAuthentication is disabled
+echo
+echo -e "${RED}5.2.7${NC} Ensure SSH HostbasedAuthentication is disabled"
+egrep -q "^(\s*)HostbasedAuthentication\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)HostbasedAuthentication\s+\S+(\s*#.*)?\s*$/\1HostbasedAuthentication no\2/" /etc/ssh/sshd_config || echo "HostbasedAuthentication no" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SSH HostbasedAuthentication is disabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH HostbasedAuthentication is disabled"
+  fail=$((fail + 1))
+fi
+
+#Ensure SSH root login is disabled
+echo
+echo -e "${RED}5.2.8${NC} Ensure SSH root login is disabled"
+egrep -q "^(\s*)PermitRootLogin\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)PermitRootLogin\s+\S+(\s*#.*)?\s*$/\1PermitRootLogin no\2/" /etc/ssh/sshd_config || echo "PermitRootLogin no" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SSH root login is disabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH root login is disabled"
+  fail=$((fail + 1))
+fi
+ 
+#Ensure SSH PermitEmptyPasswords is disabled
+echo
+echo -e "${RED}5.2.9${NC} Ensure SSH PermitEmptyPasswords is disabled"
+egrep -q "^(\s*)PermitEmptyPasswords\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)PermitEmptyPasswords\s+\S+(\s*#.*)?\s*$/\1PermitEmptyPasswords no\2/" /etc/ssh/sshd_config || echo "PermitEmptyPasswords no" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SSH PermitEmptyPasswords is disabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH PermitEmptyPasswords is disabled"
+  fail=$((fail + 1))
+fi
+ 
+#Ensure SSH PermitUserEnvironment is disabled
+echo
+echo -e "${RED}5.2.10${NC} Ensure SSH PermitUserEnvironment is disabled"
+egrep -q "^(\s*)PermitUserEnvironment\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)PermitUserEnvironment\s+\S+(\s*#.*)?\s*$/\1PermitUserEnvironment no\2/" /etc/ssh/sshd_config || echo "PermitUserEnvironment no" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SSH PermitUserEnvironment is disabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH PermitUserEnvironment is disabled"
+  fail=$((fail + 1))
+fi
+ 
+#Ensure only approved MAC algorithms are used
+echo
+echo -e "${RED}5.2.11${NC} Ensure only approved MAC algorithms are used"
+egrep -q "^(\s*)MACs\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)MACs\s+\S+(\s*#.*)?\s*$/\1MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com,curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256\2/" /etc/ssh/sshd_config || echo "MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com,curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure only approved MAC algorithms are used"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure only approved MAC algorithms are used"
+  fail=$((fail + 1))
+fi
+
+#Ensure SSH Idle Timeout Interval is configured
+echo
+echo -e "${RED}5.2.12${NC} Ensure SSH Idle Timeout Interval is configured"
+egrep -q "^(\s*)ClientAliveInterval\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)ClientAliveInterval\s+\S+(\s*#.*)?\s*$/\1ClientAliveInterval 300\2/" /etc/ssh/sshd_config || echo "ClientAliveInterval 300" >> /etc/ssh/sshd_config
+egrep -q "^(\s*)ClientAliveCountMax\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)ClientAliveCountMax\s+\S+(\s*#.*)?\s*$/\1ClientAliveCountMax 0\2/" /etc/ssh/sshd_config || echo "ClientAliveCountMax 0" >> /etc/ssh/sshd_config
+echo -e "${GREEN}Remediated:${NC} Ensure SSH Idle Timeout Interval is configured"
+success=$((success + 1))
+
+#Ensure SSH LoginGraceTime is set to one minute or less
+echo
+echo -e "${RED}5.2.13${NC} Ensure SSH LoginGraceTime is set to one minute or less"
+egrep -q "^(\s*)LoginGraceTime\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)LoginGraceTime\s+\S+(\s*#.*)?\s*$/\1LoginGraceTime 60\2/" /etc/ssh/sshd_config || echo "LoginGraceTime 60" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SSH LoginGraceTime is set to one minute or less"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH LoginGraceTime is set to one minute or less"
+  fail=$((fail + 1))
+fi
+
+#Ensure SSH warning banner is configured
+echo
+echo -e "${RED}5.2.15${NC} Ensure SSH warning banner is configured"
+egrep -q "^(\s*)Banner\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)Banner\s+\S+(\s*#.*)?\s*$/\1Banner /etc/issue.net\2/" /etc/ssh/sshd_config || echo "Banner /etc/issue.net" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SSH warning banner is configured"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH warning banner is configured"
+  fail=$((fail + 1))
+fi
 
