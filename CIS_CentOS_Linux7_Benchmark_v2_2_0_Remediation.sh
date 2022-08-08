@@ -1694,31 +1694,31 @@ else
   fail=$((fail + 1))
 fi
 
-# #Ensure SSH LogLevel is set to INFO
-# echo
-# echo -e "${RED}5.2.3${NC} Ensure SSH LogLevel is set to INFO"
-# egrep -q "^(\s*)LogLevel\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)LogLevel\s+\S+(\s*#.*)?\s*$/\1LogLevel INFO\2/" /etc/ssh/sshd_config || echo "LogLevel INFO" >> /etc/ssh/sshd_config
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure SSH LogLevel is set to INFO"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH LogLevel is set to INFO"
-#   fail=$((fail + 1))
-# fi
+#Ensure SSH LogLevel is set to INFO
+echo
+echo -e "${RED}5.2.3${NC} Ensure SSH LogLevel is set to INFO"
+egrep -q "^(\s*)LogLevel\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)LogLevel\s+\S+(\s*#.*)?\s*$/\1LogLevel INFO\2/" /etc/ssh/sshd_config || echo "LogLevel INFO" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SSH LogLevel is set to INFO"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH LogLevel is set to INFO"
+  fail=$((fail + 1))
+fi
 
-# #Ensure SSH X11 forwarding is disabled
-# echo
-# echo -e "${RED}5.2.4${NC} Ensure SSH X11 forwarding is disabled"
-# egrep -q "^(\s*)X11Forwarding\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)X11Forwarding\s+\S+(\s*#.*)?\s*$/\1X11Forwarding no\2/" /etc/ssh/sshd_config || echo "X11Forwarding no" >> /etc/ssh/sshd_config
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure SSH X11 forwarding is disabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH X11 forwarding is disabled"
-#   fail=$((fail + 1))
-# fi
+#Ensure SSH X11 forwarding is disabled
+echo
+echo -e "${RED}5.2.4${NC} Ensure SSH X11 forwarding is disabled"
+egrep -q "^(\s*)X11Forwarding\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)X11Forwarding\s+\S+(\s*#.*)?\s*$/\1X11Forwarding no\2/" /etc/ssh/sshd_config || echo "X11Forwarding no" >> /etc/ssh/sshd_config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SSH X11 forwarding is disabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH X11 forwarding is disabled"
+  fail=$((fail + 1))
+fi
 
 # #Ensure SSH MaxAuthTries is set to 4 or less
 # echo
