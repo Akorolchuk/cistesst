@@ -283,79 +283,79 @@ fi
 echo
 echo -e "${BLUE}1.6 Initial Setup - Mandatory Access Control${NC}"
 
-# #Ensure SELinux is not disabled in bootloader configuration
-# echo
-# echo -e "${RED}1.6.1.1${NC} Ensure SELinux is not disabled in bootloader configuration"
-# sed -ri "s/^(\s*)GRUB_CMDLINE_LINUX=\"selinux=0\"\s*=\s*\S+(\s*#.*)?\s*$/\1GRUB_CMDLINE_LINUX=\"\"\2/" /etc/default/grub
-# sed -ri "s/^(\s*)GRUB_CMDLINE_LINUX=\"enforcing=0\"\s*=\s*\S+(\s*#.*)?\s*$/\1GRUB_CMDLINE_LINUX=\"\"\2/" /etc/default/grub
-# grub2-mkconfig -o /boot/grub2/grub.cfg
-# echo -e "${GREEN}Remediated:${NC} Ensure SELinux is not disabled in bootloader configuration"
-# success=$((success + 1))
+#Ensure SELinux is not disabled in bootloader configuration
+echo
+echo -e "${RED}1.6.1.1${NC} Ensure SELinux is not disabled in bootloader configuration"
+sed -ri "s/^(\s*)GRUB_CMDLINE_LINUX=\"selinux=0\"\s*=\s*\S+(\s*#.*)?\s*$/\1GRUB_CMDLINE_LINUX=\"\"\2/" /etc/default/grub
+sed -ri "s/^(\s*)GRUB_CMDLINE_LINUX=\"enforcing=0\"\s*=\s*\S+(\s*#.*)?\s*$/\1GRUB_CMDLINE_LINUX=\"\"\2/" /etc/default/grub
+grub2-mkconfig -o /boot/grub2/grub.cfg
+echo -e "${GREEN}Remediated:${NC} Ensure SELinux is not disabled in bootloader configuration"
+success=$((success + 1))
 
-# #Ensure the SELinux state is enforcing
-# echo
-# echo -e "${RED}1.6.1.2${NC} Ensure the SELinux state is enforcing"
-# egrep -q "^(\s*)SELINUX\s*=\s*\S+(\s*#.*)?\s*$" /etc/selinux/config && sed -ri "s/^(\s*)SELINUX\s*=\s*\S+(\s*#.*)?\s*$/\1SELINUX=enforcing\2/" /etc/selinux/config || echo "SELINUX=enforcing" >> /etc/selinux/config
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure the SELinux state is enforcing"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure the SELinux state is enforcing"
-#   fail=$((fail + 1))
-# fi
+#Ensure the SELinux state is enforcing
+echo
+echo -e "${RED}1.6.1.2${NC} Ensure the SELinux state is enforcing"
+egrep -q "^(\s*)SELINUX\s*=\s*\S+(\s*#.*)?\s*$" /etc/selinux/config && sed -ri "s/^(\s*)SELINUX\s*=\s*\S+(\s*#.*)?\s*$/\1SELINUX=enforcing\2/" /etc/selinux/config || echo "SELINUX=enforcing" >> /etc/selinux/config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure the SELinux state is enforcing"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure the SELinux state is enforcing"
+  fail=$((fail + 1))
+fi
 
-# #Ensure SELinux policy is configured
-# echo
-# echo -e "${RED}1.6.1.3${NC} Ensure SELinux policy is configured"
-# egrep -q "^(\s*)SELINUXTYPE\s*=\s*\S+(\s*#.*)?\s*$" /etc/selinux/config && sed -ri "s/^(\s*)SELINUXTYPE\s*=\s*\S+(\s*#.*)?\s*$/\1SELINUXTYPE=targeted\2/" /etc/selinux/config || echo "SELINUXTYPE=targeted" >> /etc/selinux/config
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure SELinux policy is configured"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure SELinux policy is configured"
-#   fail=$((fail + 1))
-# fi
+#Ensure SELinux policy is configured
+echo
+echo -e "${RED}1.6.1.3${NC} Ensure SELinux policy is configured"
+egrep -q "^(\s*)SELINUXTYPE\s*=\s*\S+(\s*#.*)?\s*$" /etc/selinux/config && sed -ri "s/^(\s*)SELINUXTYPE\s*=\s*\S+(\s*#.*)?\s*$/\1SELINUXTYPE=targeted\2/" /etc/selinux/config || echo "SELINUXTYPE=targeted" >> /etc/selinux/config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SELinux policy is configured"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SELinux policy is configured"
+  fail=$((fail + 1))
+fi
 
-# #Ensure SETroubleshoot is not installed
-# echo
-# echo -e "${RED}1.6.1.4${NC} Ensure SETroubleshoot is not installed"
-# yum remove setroubleshoot
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure SETroubleshoot is not installed"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure SETroubleshoot is not installed"
-#   fail=$((fail + 1))
-# fi
+#Ensure SETroubleshoot is not installed
+echo
+echo -e "${RED}1.6.1.4${NC} Ensure SETroubleshoot is not installed"
+yum remove setroubleshoot
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SETroubleshoot is not installed"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SETroubleshoot is not installed"
+  fail=$((fail + 1))
+fi
 
-# #Ensure the MCS Translation Service (mcstrans) is not installed
-# echo
-# echo -e "${RED}1.6.1.5${NC} Ensure the MCS Translation Service (mcstrans) is not installed"
-# yum remove mcstrans
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure the MCS Translation Service (mcstrans) is not installed"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure the MCS Translation Service (mcstrans) is not installed"
-#   fail=$((fail + 1))
-# fi
+#Ensure the MCS Translation Service (mcstrans) is not installed
+echo
+echo -e "${RED}1.6.1.5${NC} Ensure the MCS Translation Service (mcstrans) is not installed"
+yum remove mcstrans
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure the MCS Translation Service (mcstrans) is not installed"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure the MCS Translation Service (mcstrans) is not installed"
+  fail=$((fail + 1))
+fi
 
-# #Ensure SELinux is installed
-# echo
-# echo -e "${RED}1.6.2${NC} Ensure SELinux is installed"
-# rpm -q libselinux || yum -y install libselinux
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure SELinux is installed"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure SELinux is installed"
-#   fail=$((fail + 1))
-# fi
+#Ensure SELinux is installed
+echo
+echo -e "${RED}1.6.2${NC} Ensure SELinux is installed"
+rpm -q libselinux || yum -y install libselinux
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SELinux is installed"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SELinux is installed"
+  fail=$((fail + 1))
+fi
 
 # ############################################################################################################################
 
