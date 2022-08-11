@@ -293,17 +293,17 @@ echo -e "${GREEN}Remediated:${NC} Ensure SELinux is not disabled in bootloader c
 success=$((success + 1))
 
 # #Ensure the SELinux state is enforcing
-# echo
-# echo -e "${RED}1.6.1.2${NC} Ensure the SELinux state is enforcing"
-# egrep -q "^(\s*)SELINUX\s*=\s*\S+(\s*#.*)?\s*$" /etc/selinux/config && sed -ri "s/^(\s*)SELINUX\s*=\s*\S+(\s*#.*)?\s*$/\1SELINUX=enforcing\2/" /etc/selinux/config || echo "SELINUX=enforcing" >> /etc/selinux/config
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure the SELinux state is enforcing"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure the SELinux state is enforcing"
-#   fail=$((fail + 1))
-# fi
+echo
+echo -e "${RED}1.6.1.2${NC} Ensure the SELinux state is enforcing"
+egrep -q "^(\s*)SELINUX\s*=\s*\S+(\s*#.*)?\s*$" /etc/selinux/config && sed -ri "s/^(\s*)SELINUX\s*=\s*\S+(\s*#.*)?\s*$/\1SELINUX=enforcing\2/" /etc/selinux/config || echo "SELINUX=enforcing" >> /etc/selinux/config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure the SELinux state is enforcing"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure the SELinux state is enforcing"
+  fail=$((fail + 1))
+fi
 
 # #Ensure SELinux policy is configured
 # echo
