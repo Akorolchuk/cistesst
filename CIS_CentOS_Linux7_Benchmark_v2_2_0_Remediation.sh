@@ -339,621 +339,621 @@ policystatus=$?
 if [[ "$policystatus" -eq 0 ]]; then
   echo -e "${GREEN}Remediated:${NC} Ensure the MCS Translation Service (mcstrans) is not installed"
   success=$((success + 1))
+# else
+#   echo -e "${RED}UnableToRemediate:${NC} Ensure the MCS Translation Service (mcstrans) is not installed"
+#   fail=$((fail + 1))
+# fi
+# 
+# # #Ensure SELinux is installed
+# # echo
+# # echo -e "${RED}1.6.2${NC} Ensure SELinux is installed"
+# # rpm -q libselinux || yum -y install libselinux
+# # policystatus=$?
+# # if [[ "$policystatus" -eq 0 ]]; then
+# #   echo -e "${GREEN}Remediated:${NC} Ensure SELinux is installed"
+# #   success=$((success + 1))
+# # else
+# #   echo -e "${RED}UnableToRemediate:${NC} Ensure SELinux is installed"
+# #   fail=$((fail + 1))
+# # fi
+# 
+# # ############################################################################################################################
+# 
+##Category 1.7 Initial Setup - Warning Banners
+# # echo
+echo -e "${BLUE}1.7 Initial Setup - Warning Banners${NC}"
+# 
+#Ensure message of the day is configured properly
+echo
+echo -e "${RED}1.7.1.1${NC} Ensure message of the day is configured properly"
+sed -ri 's/(\\v|\\r|\\m|\\s)//g' /etc/motd
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure message of the day is configured properly"
+  success=$((success + 1))
 else
-  echo -e "${RED}UnableToRemediate:${NC} Ensure the MCS Translation Service (mcstrans) is not installed"
+  echo -e "${RED}UnableToRemediate:${NC} Ensure message of the day is configured properly"
   fail=$((fail + 1))
 fi
-
-# #Ensure SELinux is installed
-# echo
-# echo -e "${RED}1.6.2${NC} Ensure SELinux is installed"
-# rpm -q libselinux || yum -y install libselinux
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure SELinux is installed"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure SELinux is installed"
-#   fail=$((fail + 1))
-# fi
-
-# ############################################################################################################################
-
-# ##Category 1.7 Initial Setup - Warning Banners
-# echo
-# echo -e "${BLUE}1.7 Initial Setup - Warning Banners${NC}"
-
-# #Ensure message of the day is configured properly
-# echo
-# echo -e "${RED}1.7.1.1${NC} Ensure message of the day is configured properly"
-# sed -ri 's/(\\v|\\r|\\m|\\s)//g' /etc/motd
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure message of the day is configured properly"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure message of the day is configured properly"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure local login warning banner is configured properly
-# echo
-# echo -e "${RED}1.7.1.2${NC} Ensure local login warning banner is configured properly"
-# echo "Authorized uses only. All activity may be monitored and reported." > /etc/issue
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure local login warning banner is configured properly"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure local login warning banner is configured properly"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure remote login warning banner is configured properly
-# echo
-# echo -e "${RED}1.7.1.3${NC} Ensure remote login warning banner is configured properly"
-# echo "Authorized uses only. All activity may be monitored and reported." > /etc/issue
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure remote login warning banner is configured properly"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure remote login warning banner is configured properly"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure permissions on /etc/motd are configured
-# echo
-# echo -e "${RED}1.7.1.4${NC} Ensure permissions on /etc/motd are configured"
-# chown root:root /etc/motd && chmod 644 /etc/motd
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/motd are configured"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/motd are configured"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure permissions on /etc/issue are configured
-# echo
-# echo -e "${RED}1.7.1.5${NC} Ensure permissions on /etc/issue are configured"
-# chown root:root /etc/issue && chmod 644 /etc/issue
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/issue are configured"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/issue are configured"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure permissions on /etc/issue.net are configured
-# echo
-# echo -e "${RED}1.7.1.6${NC} Ensure permissions on /etc/issue.net are configured"
-# chown root:root /etc/issue.net && chmod 644 /etc/issue.net
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/issue.net are configured"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/issue.net are configured"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure updates, patches, and additional security software are installed
-# echo
-# echo -e "${RED}1.8${NC} Ensure updates, patches, and additional security software are installed"
-# yum update --security
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure updates, patches, and additional security software are installed"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure updates, patches, and additional security software are installed"
-#   fail=$((fail + 1))
-# fi
-
-# ############################################################################################################################
-
-# ##Category 2.1 Services - inetd Services
-# echo
-# echo -e "${BLUE}2.1 Services - inetd Services${NC}"
-#  
-# #Ensure chargen services are not enabled
-# echo
-# echo -e "${RED}2.1.1${NC} Ensure chargen services are not enabled"
-# chkconfig chargen-dgram off && chkconfig chargen-stream off
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure chargen services are not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure chargen services are not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure daytime services are not enabled
-# echo
-# echo -e "${RED}2.1.2${NC} Ensure daytime services are not enabled"
-# chkconfig daytime-dgram off && chkconfig daytime-stream off
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure daytime services are not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure daytime services are not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure discard services are not enabled
-# echo
-# echo -e "${RED}2.1.3${NC} Ensure discard services are not enabled"
-# chkconfig discard-dgram off && chkconfig discard-stream off
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure discard services are not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure discard services are not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure echo services are not enabled
-# echo
-# echo -e "${RED}2.1.4${NC} Ensure echo services are not enabled"
-# chkconfig echo-dgram off && chkconfig echo-stream off
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure echo services are not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure echo services are not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure time services are not enabled
-# echo
-# echo -e "${RED}2.1.5${NC} Ensure time services are not enabled"
-# chkconfig time-dgram off && chkconfig time-stream off
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure time services are not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure time services are not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure tftp server is not enabled
-# echo
-# echo -e "${RED}2.1.6${NC} Ensure tftp server is not enabled"
-# chkconfig tftp off
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure tftp server is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure tftp server is not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure xinetd is not enabled
-# echo
-# echo -e "${RED}2.1.7${NC} Ensure xinetd is not enabled"
-# systemctl disable xinetd
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure xinetd is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure xinetd is not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# ############################################################################################################################
-
-# ##Category 2.2 Services - Special Purpose Services
-# echo
-# echo -e "${BLUE}2.2 Services - Special Purpose Services${NC}"
-
-# #Ensure time synchronization is in use
-# echo
-# echo -e "${RED}2.2.1.1${NC} Ensure time synchronization is in use"
-# rpm -q ntp || rpm -q chrony || yum -y install chrony
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure time synchronization is in use"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure time synchronization is in use"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure ntp is configured
-# echo
-# echo -e "${RED}2.2.1.2${NC} Ensure ntp is configured"
-# if rpm -q ntp >/dev/null; then
-#     egrep -q "^\s*restrict(\s+-4)?\s+default(\s+\S+)*(\s*#.*)?\s*$" /etc/ntp.conf && sed -ri "s/^(\s*)restrict(\s+-4)?\s+default(\s+[^[:space:]#]+)*(\s+#.*)?\s*$/\1restrict\2 default kod nomodify notrap nopeer noquery\4/" /etc/ntp.conf || echo "restrict default kod nomodify notrap nopeer noquery" >> /etc/ntp.conf 
-#     egrep -q "^\s*restrict\s+-6\s+default(\s+\S+)*(\s*#.*)?\s*$" /etc/ntp.conf && sed -ri "s/^(\s*)restrict\s+-6\s+default(\s+[^[:space:]#]+)*(\s+#.*)?\s*$/\1restrict -6 default kod nomodify notrap nopeer noquery\3/" /etc/ntp.conf || echo "restrict -6 default kod nomodify notrap nopeer noquery" >> /etc/ntp.conf 
-#     egrep -q "^(\s*)OPTIONS\s*=\s*\"(([^\"]+)?-u\s[^[:space:]\"]+([^\"]+)?|([^\"]+))\"(\s*#.*)?\s*$" /etc/sysconfig/ntpd && sed -ri '/^(\s*)OPTIONS\s*=\s*\"([^\"]*)\"(\s*#.*)?\s*$/ {/^(\s*)OPTIONS\s*=\s*\"[^\"]*-u\s+\S+[^\"]*\"(\s*#.*)?\s*$/! s/^(\s*)OPTIONS\s*=\s*\"([^\"]*)\"(\s*#.*)?\s*$/\1OPTIONS=\"\2 -u ntp:ntp\"\3/ }' /etc/sysconfig/ntpd && sed -ri "s/^(\s*)OPTIONS\s*=\s*\"([^\"]+\s+)?-u\s[^[:space:]\"]+(\s+[^\"]+)?\"(\s*#.*)?\s*$/\1OPTIONS=\"\2\-u ntp:ntp\3\"\4/" /etc/sysconfig/ntpd || echo "OPTIONS=\"-u ntp:ntp\"" >> /etc/sysconfig/ntpd
-# fi
-# echo -e "${GREEN}Remediated:${NC} Ensure ntp is configured"
-# success=$((success + 1))
-
-# #Ensure chrony is configured
-# echo
-# echo -e "${RED}2.2.1.3${NC} Ensure chrony is configured"
-# if rpm -q chrony >/dev/null; then
-#     egrep -q "^(\s*)OPTIONS\s*=\s*\"(([^\"]+)?-u\s[^[:space:]\"]+([^\"]+)?|([^\"]+))\"(\s*#.*)?\s*$" /etc/sysconfig/chronyd && sed -ri '/^(\s*)OPTIONS\s*=\s*\"([^\"]*)\"(\s*#.*)?\s*$/ {/^(\s*)OPTIONS\s*=\s*\"[^\"]*-u\s+\S+[^\"]*\"(\s*#.*)?\s*$/! s/^(\s*)OPTIONS\s*=\s*\"([^\"]*)\"(\s*#.*)?\s*$/\1OPTIONS=\"\2 -u chrony\"\3/ }' /etc/sysconfig/chronyd && sed -ri "s/^(\s*)OPTIONS\s*=\s*\"([^\"]+\s+)?-u\s[^[:space:]\"]+(\s+[^\"]+)?\"(\s*#.*)?\s*$/\1OPTIONS=\"\2\-u chrony\3\"\4/" /etc/sysconfig/chronyd || echo "OPTIONS=\"-u chrony\"" >> /etc/sysconfig/chronyd
-# fi
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure chrony is configured"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure chrony is configured"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure X Window System is not installed
-# echo
-# echo -e "${RED}2.2.2${NC} Ensure X Window System is not installed"
-# yum remove xorg-x11*
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure X Window System is not installed"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure X Window System is not installed"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure Avahi Server is not enabled
-# echo
-# echo -e "${RED}2.2.3${NC} Ensure Avahi Server is not enabled"
-# systemctl disable avahi-daemon
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure Avahi Server is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure Avahi Server is not enabled"
-#   fail=$((fail + 1))
-# fi
-#  
-# #Ensure CUPS is not enabled
-# echo
-# echo -e "${RED}2.2.4${NC} Ensure CUPS is not enabled"
-# systemctl disable cups
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure CUPS is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure CUPS is not enabled"
-#   fail=$((fail + 1))
-# fi
-#  
-# #Ensure DHCP Server is not enabled
-# echo
-# echo -e "${RED}2.2.5${NC} Ensure DHCP Server is not enabled"
-# systemctl disable dhcpd
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure DHCP Server is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure DHCP Server is not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure LDAP server is not enabled
-# echo
-# echo -e "${RED}2.2.6${NC} Ensure LDAP server is not enabled"
-# systemctl disable slapd
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure LDAP server is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure LDAP server is not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure NFS and RPC are not enabled
-# echo
-# echo -e "${RED}2.2.7${NC} Ensure NFS and RPC are not enabled"
-# systemctl disable nfs && systemctl disable nfs-server && systemctl disable rpcbind
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure NFS and RPC are not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure NFS and RPC are not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure DNS Server is not enabled
-# echo
-# echo -e "${RED}2.2.8${NC} Ensure DNS Server is not enabled"
-# systemctl disable named
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure DNS Server is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure DNS Server is not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure FTP Server is not enabled
-# echo
-# echo -e "${RED}2.2.9${NC} Ensure FTP Server is not enabled"
-# systemctl disable vsftpd
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure FTP Server is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure FTP Server is not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure HTTP server is not enabled
-# echo
-# echo -e "${RED}2.2.10${NC} Ensure HTTP server is not enabled"
-# systemctl disable httpd
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure HTTP server is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure HTTP server is not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure IMAP and POP3 server is not enabled
-# echo
-# echo -e "${RED}2.2.11${NC} Ensure IMAP and POP3 server is not enabled"
-# systemctl disable dovecot
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure IMAP and POP3 server is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure IMAP and POP3 server is not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure Samba is not enabled
-# echo
-# echo -e "${RED}2.2.12${NC} Ensure Samba is not enabled"
-# systemctl disable smb
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure Samba is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure Samba is not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure HTTP Proxy Server is not enabled
-# echo
-# echo -e "${RED}2.2.13${NC} Ensure HTTP Proxy Server is not enabled"
-# systemctl disable squid
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure HTTP Proxy Server is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure HTTP Proxy Server is not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure SNMP Server is not enabled
-# echo
-# echo -e "${RED}2.2.14${NC} Ensure SNMP Server is not enabled"
-# systemctl disable snmpd
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure SNMP Server is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure SNMP Server is not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure mail transfer agent is configured for local-only mode
-# echo
-# echo -e "${RED}2.2.15${NC} Ensure mail transfer agent is configured for local-only mode"
-# egrep -q "^(\s*)inet_interfaces\s*=\s*\S+(\s*#.*)?\s*$" /etc/postfix/main.cf && sed -ri "s/^(\s*)inet_interfaces\s*=\s*\S+(\s*#.*)?\s*$/\1inet_interfaces = loopback-only\2/" /etc/postfix/main.cf || echo "inet_interfaces = loopback-only" >> /etc/postfix/main.cf
-# systemctl restart postfix
-# echo -e "${GREEN}Remediated:${NC} Ensure mail transfer agent is configured for local-only mode"
-# success=$((success + 1))
-
-# #Ensure NIS Server is not enabled
-# echo
-# echo -e "${RED}2.2.16${NC} Ensure NIS Server is not enabled"
-# systemctl disable ypserv
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure NIS Server is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure NIS Server is not enabled"
-#   fail=$((fail + 1))
-# fi
-#  
-# #Ensure rsh server is not enabled
-# echo
-# echo -e "${RED}2.2.17${NC} Ensure rsh server is not enabled"
-# systemctl disable rsh.socket.service && systemctl disable rlogin.socket.service && systemctl disable rexec.socket.service
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure rsh server is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure rsh server is not enabled"
-#   fail=$((fail + 1))
-# fi
-#  
-# #Ensure telnet server is not enabled
-# echo
-# echo -e "${RED}2.2.18${NC} Ensure telnet server is not enabled"
-# systemctl disable telnet.socket.service
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure telnet server is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure telnet server is not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure tftp server is not enabled
-# echo
-# echo -e "${RED}2.2.19${NC} Ensure tftp server is not enabled"
-# systemctl disable tftp.socket
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure tftp server is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure tftp server is not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure rsync service is not enabled
-# echo
-# echo -e "${RED}2.2.20${NC} Ensure rsync service is not enabled"
-# systemctl disable rsyncd
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure rsync service is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure rsync service is not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure talk server is not enabled
-# echo
-# echo -e "${RED}2.2.21${NC} Ensure talk server is not enabled"
-# systemctl disable ntalk
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure talk server is not enabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure talk server is not enabled"
-#   fail=$((fail + 1))
-# fi
-
-# ############################################################################################################################
-
-# ##Category 2.3 Services - Service Clients
-# echo
-# echo -e "${BLUE}2.3 Services - Service Clients${NC}"
-
-# #Ensure NIS Client is not installed
-# echo
-# echo -e "${RED}2.3.1${NC} Ensure NIS Client is not installed"
-# yum remove ypbind
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure NIS Client is not installed"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure NIS Client is not installed"
-#   fail=$((fail + 1))
-# fi
-#  
-# #Ensure rsh client is not installed
-# echo
-# echo -e "${RED}2.3.2${NC} Ensure rsh client is not installed"
-# yum remove rsh
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure rsh client is not installed"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure rsh client is not installed"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure talk client is not installed
-# echo
-# echo -e "${RED}2.3.3${NC} Ensure talk client is not installed"
-# yum remove talk
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure talk client is not installed"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure talk client is not installed"
-#   fail=$((fail + 1))
-# fi
-#  
-# #Ensure telnet client is not installed
-# echo
-# echo -e "${RED}2.3.4${NC} Ensure telnet client is not installed"
-# yum -y remove telnet
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure telnet client is not installed"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure telnet client is not installed"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure LDAP client is not installed
-# echo
-# echo -e "${RED}2.3.5${NC} Ensure LDAP client is not installed"
-# yum remove openldap-clients
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure LDAP client is not installed"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure LDAP client is not installed"
-#   fail=$((fail + 1))
-# fi
-
-# ############################################################################################################################
-
-# ##Category 3.1 Network Configuration - Network Parameters (Host Only)
-# echo
-# echo -e "${BLUE}3.1 Network Configuration - Network Parameters (Host Only)${NC}"
-#  
-# #Ensure IP forwarding is disabled
-# echo
-# echo -e "${RED}3.1.1${NC} Ensure IP forwarding is disabled"
-# egrep -q "^(\s*)net.ipv4.ip_forward\s*=\s*\S+(\s*#.*)?\s*$" /etc/sysctl.conf && sed -ri "s/^(\s*)net.ipv4.ip_forward\s*=\s*\S+(\s*#.*)?\s*$/\1net.ipv4.ip_forward = 0\2/" /etc/sysctl.conf || echo "net.ipv4.ip_forward = 0" >> /etc/sysctl.conf
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure IP forwarding is disabled"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure IP forwarding is disabled"
-#   fail=$((fail + 1))
-# fi
-
-# #Ensure packet redirect sending is disabled
-# echo
-# echo -e "${RED}3.1.2${NC} Ensure packet redirect sending is disabled"
-# egrep -q "^(\s*)net.ipv4.conf.all.send_redirects\s*=\s*\S+(\s*#.*)?\s*$" /etc/sysctl.conf && sed -ri "s/^(\s*)net.ipv4.conf.all.send_redirects\s*=\s*\S+(\s*#.*)?\s*$/\1net.ipv4.conf.all.send_redirects = 0\2/" /etc/sysctl.conf || echo "net.ipv4.conf.all.send_redirects = 0" >> /etc/sysctl.conf
-# egrep -q "^(\s*)net.ipv4.conf.default.send_redirects\s*=\s*\S+(\s*#.*)?\s*$" /etc/sysctl.conf && sed -ri "s/^(\s*)net.ipv4.conf.default.send_redirects\s*=\s*\S+(\s*#.*)?\s*$/\1net.ipv4.conf.default.send_redirects = 0\2/" /etc/sysctl.conf || echo "net.ipv4.conf.default.send_redirects = 0" >> /etc/sysctl.conf
-# sysctl -w net.ipv4.conf.all.send_redirects=0
-# sysctl -w net.ipv4.conf.default.send_redirects=0
-# sysctl -w net.ipv4.route.flush=1
-# echo -e "${GREEN}Remediated:${NC} Ensure packet redirect sending is disabled"
-# success=$((success + 1))
-
-# ############################################################################################################################
-
+# 
+#Ensure local login warning banner is configured properly
+echo
+echo -e "${RED}1.7.1.2${NC} Ensure local login warning banner is configured properly"
+echo "Authorized uses only. All activity may be monitored and reported." > /etc/issue
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure local login warning banner is configured properly"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure local login warning banner is configured properly"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure remote login warning banner is configured properly
+echo
+echo -e "${RED}1.7.1.3${NC} Ensure remote login warning banner is configured properly"
+echo "Authorized uses only. All activity may be monitored and reported." > /etc/issue
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure remote login warning banner is configured properly"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure remote login warning banner is configured properly"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure permissions on /etc/motd are configured
+echo
+echo -e "${RED}1.7.1.4${NC} Ensure permissions on /etc/motd are configured"
+chown root:root /etc/motd && chmod 644 /etc/motd
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/motd are configured"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/motd are configured"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure permissions on /etc/issue are configured
+echo
+echo -e "${RED}1.7.1.5${NC} Ensure permissions on /etc/issue are configured"
+chown root:root /etc/issue && chmod 644 /etc/issue
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/issue are configured"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/issue are configured"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure permissions on /etc/issue.net are configured
+echo
+echo -e "${RED}1.7.1.6${NC} Ensure permissions on /etc/issue.net are configured"
+chown root:root /etc/issue.net && chmod 644 /etc/issue.net
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/issue.net are configured"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/issue.net are configured"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure updates, patches, and additional security software are installed
+echo
+echo -e "${RED}1.8${NC} Ensure updates, patches, and additional security software are installed"
+yum update --security
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure updates, patches, and additional security software are installed"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure updates, patches, and additional security software are installed"
+  fail=$((fail + 1))
+fi
+# 
+############################################################################################################################
+# 
+##Category 2.1 Services - inetd Services
+echo
+echo -e "${BLUE}2.1 Services - inetd Services${NC}"
+ 
+#Ensure chargen services are not enabled
+echo
+echo -e "${RED}2.1.1${NC} Ensure chargen services are not enabled"
+chkconfig chargen-dgram off && chkconfig chargen-stream off
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure chargen services are not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure chargen services are not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure daytime services are not enabled
+echo
+echo -e "${RED}2.1.2${NC} Ensure daytime services are not enabled"
+chkconfig daytime-dgram off && chkconfig daytime-stream off
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure daytime services are not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure daytime services are not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure discard services are not enabled
+echo
+echo -e "${RED}2.1.3${NC} Ensure discard services are not enabled"
+chkconfig discard-dgram off && chkconfig discard-stream off
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure discard services are not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure discard services are not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure echo services are not enabled
+echo
+echo -e "${RED}2.1.4${NC} Ensure echo services are not enabled"
+chkconfig echo-dgram off && chkconfig echo-stream off
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure echo services are not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure echo services are not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure time services are not enabled
+echo
+echo -e "${RED}2.1.5${NC} Ensure time services are not enabled"
+chkconfig time-dgram off && chkconfig time-stream off
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure time services are not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure time services are not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure tftp server is not enabled
+echo
+echo -e "${RED}2.1.6${NC} Ensure tftp server is not enabled"
+chkconfig tftp off
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure tftp server is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure tftp server is not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure xinetd is not enabled
+echo
+echo -e "${RED}2.1.7${NC} Ensure xinetd is not enabled"
+systemctl disable xinetd
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure xinetd is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure xinetd is not enabled"
+  fail=$((fail + 1))
+fi
+# 
+############################################################################################################################
+# 
+##Category 2.2 Services - Special Purpose Services
+echo
+echo -e "${BLUE}2.2 Services - Special Purpose Services${NC}"
+# 
+#Ensure time synchronization is in use
+echo
+echo -e "${RED}2.2.1.1${NC} Ensure time synchronization is in use"
+rpm -q ntp || rpm -q chrony || yum -y install chrony
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure time synchronization is in use"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure time synchronization is in use"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure ntp is configured
+echo
+echo -e "${RED}2.2.1.2${NC} Ensure ntp is configured"
+if rpm -q ntp >/dev/null; then
+    egrep -q "^\s*restrict(\s+-4)?\s+default(\s+\S+)*(\s*#.*)?\s*$" /etc/ntp.conf && sed -ri "s/^(\s*)restrict(\s+-4)?\s+default(\s+[^[:space:]#]+)*(\s+#.*)?\s*$/\1restrict\2 default kod nomodify notrap nopeer noquery\4/" /etc/ntp.conf || echo "restrict default kod nomodify notrap nopeer noquery" >> /etc/ntp.conf 
+    egrep -q "^\s*restrict\s+-6\s+default(\s+\S+)*(\s*#.*)?\s*$" /etc/ntp.conf && sed -ri "s/^(\s*)restrict\s+-6\s+default(\s+[^[:space:]#]+)*(\s+#.*)?\s*$/\1restrict -6 default kod nomodify notrap nopeer noquery\3/" /etc/ntp.conf || echo "restrict -6 default kod nomodify notrap nopeer noquery" >> /etc/ntp.conf 
+    egrep -q "^(\s*)OPTIONS\s*=\s*\"(([^\"]+)?-u\s[^[:space:]\"]+([^\"]+)?|([^\"]+))\"(\s*#.*)?\s*$" /etc/sysconfig/ntpd && sed -ri '/^(\s*)OPTIONS\s*=\s*\"([^\"]*)\"(\s*#.*)?\s*$/ {/^(\s*)OPTIONS\s*=\s*\"[^\"]*-u\s+\S+[^\"]*\"(\s*#.*)?\s*$/! s/^(\s*)OPTIONS\s*=\s*\"([^\"]*)\"(\s*#.*)?\s*$/\1OPTIONS=\"\2 -u ntp:ntp\"\3/ }' /etc/sysconfig/ntpd && sed -ri "s/^(\s*)OPTIONS\s*=\s*\"([^\"]+\s+)?-u\s[^[:space:]\"]+(\s+[^\"]+)?\"(\s*#.*)?\s*$/\1OPTIONS=\"\2\-u ntp:ntp\3\"\4/" /etc/sysconfig/ntpd || echo "OPTIONS=\"-u ntp:ntp\"" >> /etc/sysconfig/ntpd
+fi
+echo -e "${GREEN}Remediated:${NC} Ensure ntp is configured"
+success=$((success + 1))
+# 
+#Ensure chrony is configured
+echo
+echo -e "${RED}2.2.1.3${NC} Ensure chrony is configured"
+if rpm -q chrony >/dev/null; then
+    egrep -q "^(\s*)OPTIONS\s*=\s*\"(([^\"]+)?-u\s[^[:space:]\"]+([^\"]+)?|([^\"]+))\"(\s*#.*)?\s*$" /etc/sysconfig/chronyd && sed -ri '/^(\s*)OPTIONS\s*=\s*\"([^\"]*)\"(\s*#.*)?\s*$/ {/^(\s*)OPTIONS\s*=\s*\"[^\"]*-u\s+\S+[^\"]*\"(\s*#.*)?\s*$/! s/^(\s*)OPTIONS\s*=\s*\"([^\"]*)\"(\s*#.*)?\s*$/\1OPTIONS=\"\2 -u chrony\"\3/ }' /etc/sysconfig/chronyd && sed -ri "s/^(\s*)OPTIONS\s*=\s*\"([^\"]+\s+)?-u\s[^[:space:]\"]+(\s+[^\"]+)?\"(\s*#.*)?\s*$/\1OPTIONS=\"\2\-u chrony\3\"\4/" /etc/sysconfig/chronyd || echo "OPTIONS=\"-u chrony\"" >> /etc/sysconfig/chronyd
+fi
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure chrony is configured"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure chrony is configured"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure X Window System is not installed
+echo
+echo -e "${RED}2.2.2${NC} Ensure X Window System is not installed"
+yum remove xorg-x11*
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure X Window System is not installed"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure X Window System is not installed"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure Avahi Server is not enabled
+echo
+echo -e "${RED}2.2.3${NC} Ensure Avahi Server is not enabled"
+systemctl disable avahi-daemon
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure Avahi Server is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure Avahi Server is not enabled"
+  fail=$((fail + 1))
+fi
+ 
+#Ensure CUPS is not enabled
+echo
+echo -e "${RED}2.2.4${NC} Ensure CUPS is not enabled"
+systemctl disable cups
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure CUPS is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure CUPS is not enabled"
+  fail=$((fail + 1))
+fi
+ 
+#Ensure DHCP Server is not enabled
+echo
+echo -e "${RED}2.2.5${NC} Ensure DHCP Server is not enabled"
+systemctl disable dhcpd
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure DHCP Server is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure DHCP Server is not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure LDAP server is not enabled
+echo
+echo -e "${RED}2.2.6${NC} Ensure LDAP server is not enabled"
+systemctl disable slapd
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure LDAP server is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure LDAP server is not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure NFS and RPC are not enabled
+echo
+echo -e "${RED}2.2.7${NC} Ensure NFS and RPC are not enabled"
+systemctl disable nfs && systemctl disable nfs-server && systemctl disable rpcbind
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure NFS and RPC are not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure NFS and RPC are not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure DNS Server is not enabled
+echo
+echo -e "${RED}2.2.8${NC} Ensure DNS Server is not enabled"
+systemctl disable named
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure DNS Server is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure DNS Server is not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure FTP Server is not enabled
+echo
+echo -e "${RED}2.2.9${NC} Ensure FTP Server is not enabled"
+systemctl disable vsftpd
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure FTP Server is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure FTP Server is not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure HTTP server is not enabled
+echo
+echo -e "${RED}2.2.10${NC} Ensure HTTP server is not enabled"
+systemctl disable httpd
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure HTTP server is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure HTTP server is not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure IMAP and POP3 server is not enabled
+echo
+echo -e "${RED}2.2.11${NC} Ensure IMAP and POP3 server is not enabled"
+systemctl disable dovecot
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure IMAP and POP3 server is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure IMAP and POP3 server is not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure Samba is not enabled
+echo
+echo -e "${RED}2.2.12${NC} Ensure Samba is not enabled"
+systemctl disable smb
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure Samba is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure Samba is not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure HTTP Proxy Server is not enabled
+echo
+echo -e "${RED}2.2.13${NC} Ensure HTTP Proxy Server is not enabled"
+systemctl disable squid
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure HTTP Proxy Server is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure HTTP Proxy Server is not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure SNMP Server is not enabled
+echo
+echo -e "${RED}2.2.14${NC} Ensure SNMP Server is not enabled"
+systemctl disable snmpd
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SNMP Server is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SNMP Server is not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure mail transfer agent is configured for local-only mode
+echo
+echo -e "${RED}2.2.15${NC} Ensure mail transfer agent is configured for local-only mode"
+egrep -q "^(\s*)inet_interfaces\s*=\s*\S+(\s*#.*)?\s*$" /etc/postfix/main.cf && sed -ri "s/^(\s*)inet_interfaces\s*=\s*\S+(\s*#.*)?\s*$/\1inet_interfaces = loopback-only\2/" /etc/postfix/main.cf || echo "inet_interfaces = loopback-only" >> /etc/postfix/main.cf
+systemctl restart postfix
+echo -e "${GREEN}Remediated:${NC} Ensure mail transfer agent is configured for local-only mode"
+success=$((success + 1))
+# 
+#Ensure NIS Server is not enabled
+echo
+echo -e "${RED}2.2.16${NC} Ensure NIS Server is not enabled"
+systemctl disable ypserv
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure NIS Server is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure NIS Server is not enabled"
+  fail=$((fail + 1))
+fi
+ 
+#Ensure rsh server is not enabled
+echo
+echo -e "${RED}2.2.17${NC} Ensure rsh server is not enabled"
+systemctl disable rsh.socket.service && systemctl disable rlogin.socket.service && systemctl disable rexec.socket.service
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure rsh server is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure rsh server is not enabled"
+  fail=$((fail + 1))
+fi
+ 
+#Ensure telnet server is not enabled
+echo
+echo -e "${RED}2.2.18${NC} Ensure telnet server is not enabled"
+systemctl disable telnet.socket.service
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure telnet server is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure telnet server is not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure tftp server is not enabled
+echo
+echo -e "${RED}2.2.19${NC} Ensure tftp server is not enabled"
+systemctl disable tftp.socket
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure tftp server is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure tftp server is not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure rsync service is not enabled
+echo
+echo -e "${RED}2.2.20${NC} Ensure rsync service is not enabled"
+systemctl disable rsyncd
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure rsync service is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure rsync service is not enabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure talk server is not enabled
+echo
+echo -e "${RED}2.2.21${NC} Ensure talk server is not enabled"
+systemctl disable ntalk
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure talk server is not enabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure talk server is not enabled"
+  fail=$((fail + 1))
+fi
+# 
+############################################################################################################################
+# 
+##Category 2.3 Services - Service Clients
+echo
+echo -e "${BLUE}2.3 Services - Service Clients${NC}"
+# 
+#Ensure NIS Client is not installed
+echo
+echo -e "${RED}2.3.1${NC} Ensure NIS Client is not installed"
+yum remove ypbind
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure NIS Client is not installed"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure NIS Client is not installed"
+  fail=$((fail + 1))
+fi
+ 
+#Ensure rsh client is not installed
+echo
+echo -e "${RED}2.3.2${NC} Ensure rsh client is not installed"
+yum remove rsh
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure rsh client is not installed"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure rsh client is not installed"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure talk client is not installed
+echo
+echo -e "${RED}2.3.3${NC} Ensure talk client is not installed"
+yum remove talk
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure talk client is not installed"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure talk client is not installed"
+  fail=$((fail + 1))
+fi
+ 
+#Ensure telnet client is not installed
+echo
+echo -e "${RED}2.3.4${NC} Ensure telnet client is not installed"
+yum -y remove telnet
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure telnet client is not installed"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure telnet client is not installed"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure LDAP client is not installed
+echo
+echo -e "${RED}2.3.5${NC} Ensure LDAP client is not installed"
+yum remove openldap-clients
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure LDAP client is not installed"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure LDAP client is not installed"
+  fail=$((fail + 1))
+fi
+# 
+############################################################################################################################
+# 
+##Category 3.1 Network Configuration - Network Parameters (Host Only)
+echo
+echo -e "${BLUE}3.1 Network Configuration - Network Parameters (Host Only)${NC}"
+ 
+#Ensure IP forwarding is disabled
+echo
+echo -e "${RED}3.1.1${NC} Ensure IP forwarding is disabled"
+egrep -q "^(\s*)net.ipv4.ip_forward\s*=\s*\S+(\s*#.*)?\s*$" /etc/sysctl.conf && sed -ri "s/^(\s*)net.ipv4.ip_forward\s*=\s*\S+(\s*#.*)?\s*$/\1net.ipv4.ip_forward = 0\2/" /etc/sysctl.conf || echo "net.ipv4.ip_forward = 0" >> /etc/sysctl.conf
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure IP forwarding is disabled"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure IP forwarding is disabled"
+  fail=$((fail + 1))
+fi
+# 
+#Ensure packet redirect sending is disabled
+echo
+echo -e "${RED}3.1.2${NC} Ensure packet redirect sending is disabled"
+egrep -q "^(\s*)net.ipv4.conf.all.send_redirects\s*=\s*\S+(\s*#.*)?\s*$" /etc/sysctl.conf && sed -ri "s/^(\s*)net.ipv4.conf.all.send_redirects\s*=\s*\S+(\s*#.*)?\s*$/\1net.ipv4.conf.all.send_redirects = 0\2/" /etc/sysctl.conf || echo "net.ipv4.conf.all.send_redirects = 0" >> /etc/sysctl.conf
+egrep -q "^(\s*)net.ipv4.conf.default.send_redirects\s*=\s*\S+(\s*#.*)?\s*$" /etc/sysctl.conf && sed -ri "s/^(\s*)net.ipv4.conf.default.send_redirects\s*=\s*\S+(\s*#.*)?\s*$/\1net.ipv4.conf.default.send_redirects = 0\2/" /etc/sysctl.conf || echo "net.ipv4.conf.default.send_redirects = 0" >> /etc/sysctl.conf
+sysctl -w net.ipv4.conf.all.send_redirects=0
+sysctl -w net.ipv4.conf.default.send_redirects=0
+sysctl -w net.ipv4.route.flush=1
+echo -e "${GREEN}Remediated:${NC} Ensure packet redirect sending is disabled"
+success=$((success + 1))
+# 
+############################################################################################################################
+# 
 # ##Category 3.2 Network Configuration - Network Parameters (Host and Router)
 # echo
 # echo -e "${BLUE}3.2 Network Configuration - Network Parameters (Host and Router)${NC}"
@@ -965,7 +965,7 @@ fi
 # egrep -q "^(\s*)net.ipv4.conf.default.accept_source_route\s*=\s*\S+(\s*#.*)?\s*$" /etc/sysctl.conf && sed -ri "s/^(\s*)net.ipv4.conf.default.accept_source_route\s*=\s*\S+(\s*#.*)?\s*$/\1net.ipv4.conf.default.accept_source_route = 0\2/" /etc/sysctl.conf || echo "net.ipv4.conf.default.accept_source_route = 0" >> /etc/sysctl.conf
 # echo -e "${GREEN}Remediated:${NC} Ensure source routed packets are not accepted"
 # success=$((success + 1))
-
+# # 
 # #Ensure ICMP redirects are not accepted
 # echo
 # echo -e "${RED}3.2.2${NC} Ensure ICMP redirects are not accepted"
@@ -976,7 +976,7 @@ fi
 # sysctl -w net.ipv4.route.flush=1
 # echo -e "${GREEN}Remediated:${NC} Ensure ICMP redirects are not accepted"
 # success=$((success + 1))
-
+# 
 # #Ensure secure ICMP redirects are not accepted
 # echo
 # echo -e "${RED}3.2.3${NC} Ensure secure ICMP redirects are not accepted"
