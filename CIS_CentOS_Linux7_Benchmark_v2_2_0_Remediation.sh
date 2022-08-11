@@ -331,18 +331,18 @@ else
   fail=$((fail + 1))
 fi
 
-# #Ensure the MCS Translation Service (mcstrans) is not installed
-# echo
-# echo -e "${RED}1.6.1.5${NC} Ensure the MCS Translation Service (mcstrans) is not installed"
-# yum remove mcstrans
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure the MCS Translation Service (mcstrans) is not installed"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure the MCS Translation Service (mcstrans) is not installed"
-#   fail=$((fail + 1))
-# fi
+#Ensure the MCS Translation Service (mcstrans) is not installed
+echo
+echo -e "${RED}1.6.1.5${NC} Ensure the MCS Translation Service (mcstrans) is not installed"
+yum remove mcstrans
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure the MCS Translation Service (mcstrans) is not installed"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure the MCS Translation Service (mcstrans) is not installed"
+  fail=$((fail + 1))
+fi
 
 # #Ensure SELinux is installed
 # echo
