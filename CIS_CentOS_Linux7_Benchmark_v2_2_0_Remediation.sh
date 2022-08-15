@@ -292,31 +292,31 @@ grub2-mkconfig -o /boot/grub2/grub.cfg
 echo -e "${GREEN}Remediated:${NC} Ensure SELinux is not disabled in bootloader configuration"
 success=$((success + 1))
 
-# #Ensure the SELinux state is enforcing
-# echo
-# echo -e "${RED}1.6.1.2${NC} Ensure the SELinux state is enforcing"
-# egrep -q "^(\s*)SELINUX\s*=\s*\S+(\s*#.*)?\s*$" /etc/selinux/config && sed -ri "s/^(\s*)SELINUX\s*=\s*\S+(\s*#.*)?\s*$/\1SELINUX=enforcing\2/" /etc/selinux/config || echo "SELINUX=enforcing" >> /etc/selinux/config
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure the SELinux state is enforcing"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure the SELinux state is enforcing"
-#   fail=$((fail + 1))
-# fi
+#Ensure the SELinux state is enforcing
+echo
+echo -e "${RED}1.6.1.2${NC} Ensure the SELinux state is enforcing"
+egrep -q "^(\s*)SELINUX\s*=\s*\S+(\s*#.*)?\s*$" /etc/selinux/config && sed -ri "s/^(\s*)SELINUX\s*=\s*\S+(\s*#.*)?\s*$/\1SELINUX=enforcing\2/" /etc/selinux/config || echo "SELINUX=enforcing" >> /etc/selinux/config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure the SELinux state is enforcing"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure the SELinux state is enforcing"
+  fail=$((fail + 1))
+fi
 
-# #Ensure SELinux policy is configured
-# echo
-# echo -e "${RED}1.6.1.3${NC} Ensure SELinux policy is configured"
-# egrep -q "^(\s*)SELINUXTYPE\s*=\s*\S+(\s*#.*)?\s*$" /etc/selinux/config && sed -ri "s/^(\s*)SELINUXTYPE\s*=\s*\S+(\s*#.*)?\s*$/\1SELINUXTYPE=targeted\2/" /etc/selinux/config || echo "SELINUXTYPE=targeted" >> /etc/selinux/config
-# policystatus=$?
-# if [[ "$policystatus" -eq 0 ]]; then
-#   echo -e "${GREEN}Remediated:${NC} Ensure SELinux policy is configured"
-#   success=$((success + 1))
-# else
-#   echo -e "${RED}UnableToRemediate:${NC} Ensure SELinux policy is configured"
-#   fail=$((fail + 1))
-# fi
+#Ensure SELinux policy is configured
+echo
+echo -e "${RED}1.6.1.3${NC} Ensure SELinux policy is configured"
+egrep -q "^(\s*)SELINUXTYPE\s*=\s*\S+(\s*#.*)?\s*$" /etc/selinux/config && sed -ri "s/^(\s*)SELINUXTYPE\s*=\s*\S+(\s*#.*)?\s*$/\1SELINUXTYPE=targeted\2/" /etc/selinux/config || echo "SELINUXTYPE=targeted" >> /etc/selinux/config
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SELinux policy is configured"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SELinux policy is configured"
+  fail=$((fail + 1))
+fi
 
 #Ensure SETroubleshoot is not installed
 echo
@@ -345,18 +345,18 @@ else
 fi
 # 
 # # #Ensure SELinux is installed
-# # echo
-# # echo -e "${RED}1.6.2${NC} Ensure SELinux is installed"
-# # rpm -q libselinux || yum -y install libselinux
-# # policystatus=$?
-# # if [[ "$policystatus" -eq 0 ]]; then
-# #   echo -e "${GREEN}Remediated:${NC} Ensure SELinux is installed"
-# #   success=$((success + 1))
-# # else
-# #   echo -e "${RED}UnableToRemediate:${NC} Ensure SELinux is installed"
-# #   fail=$((fail + 1))
-# # fi
-# 
+echo
+echo -e "${RED}1.6.2${NC} Ensure SELinux is installed"
+rpm -q libselinux || yum -y install libselinux
+policystatus=$?
+if [[ "$policystatus" -eq 0 ]]; then
+  echo -e "${GREEN}Remediated:${NC} Ensure SELinux is installed"
+  success=$((success + 1))
+else
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SELinux is installed"
+  fail=$((fail + 1))
+fi
+
 # # ############################################################################################################################
 # 
 ##Category 1.7 Initial Setup - Warning Banners
